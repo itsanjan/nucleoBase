@@ -61,10 +61,33 @@ int main(void)
   */
 
   /* TODO - Add your application code here */
-
+  SystemInit(); //SystemInit initializes clock at 16000000Hz
+  RCC->AHB1ENR=0x00000002; //Enable peripheral clock to GPIOB Port
+  GPIOB->MODER=0x00004000; //Set PB7 pin as output. Blue LED (LD2 is on PB7)
+  GPIOB->OTYPER=0x00000000; //Set output pin as push pull type
+  GPIOB->OSPEEDR=0x00004000; //set output speed as medium speed
   /* Infinite loop */
   while (1)
   {
+	GPIOB->ODR=0x00000080; //Set PB7 bit high using ODR register
+	delay_ms(1000); //1 Second delay
+	GPIOB->ODR=0x00000000; //Set PB7 bit low using ODR register
+	delay_ms(1000); //1 Second delay
 	i++;
   }
+}
+
+void delay_ms(unsigned long int n)
+{
+	unsigned long int i=0,j=0;
+	for(i=0;i<=1000;i++)
+	{
+		for(j=0;j<=n;j++)
+		{
+			//do nothing
+
+		}
+	}
+
+
 }
